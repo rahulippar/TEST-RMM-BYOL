@@ -102,10 +102,12 @@ output "PUBLIC_IP" {
   value       = var.is_create_fip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
 }
 
+/*
 variable "TF_VERSION" {
   default     = "0.15"
   description = "Terraform engine version to be used in schematics"
 }
+*/
 
 variable "image_url" {
   default     = "cos://us-east/rackware-rmm-bucket/RackWareRMMv7.4.0.561.qcow2"
