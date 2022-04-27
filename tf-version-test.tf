@@ -5,7 +5,7 @@ terraform {
       version = "~> 1.40.0"
     }
   }
-  required_version = ">= 1.1.9"
+  required_version = ">= 1.0.0"
 }
 
 provider "ibm" {
