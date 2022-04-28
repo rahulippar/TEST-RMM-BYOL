@@ -18,8 +18,7 @@ data "ibm_is_vpc" "vpc" {
 }
 
 data "ibm_resource_group" "rg" {
-  #name = var.resource_group
-  id = var.resource_group
+  name = var.resource_group
 }
 
 data "ibm_is_subnet" "subnet" {
