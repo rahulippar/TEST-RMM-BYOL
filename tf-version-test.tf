@@ -14,11 +14,13 @@ provider "ibm" {
 }
 
 data "ibm_is_vpc" "vpc" {
-  name = var.vpc_name
+#  name = var.vpc_name
+    id = var.vpc_name
 }
 
 data "ibm_resource_group" "rg" {
-  name = var.resource_group
+  #name = var.resource_group
+  id = var.resource_group
 }
 
 data "ibm_is_subnet" "subnet" {
