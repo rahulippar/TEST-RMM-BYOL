@@ -83,7 +83,7 @@ resource "ibm_is_instance" "vsi" {
   image          = ibm_is_image.custom_image.id
   profile        = var.profile
 
-  # user_data = file("download_discovery.sh")
+  user_data = file("download_discovery.sh")
   primary_network_interface {
     subnet          = data.ibm_is_subnet.subnet.id
     security_groups = [ibm_is_security_group.sg.id]
@@ -102,12 +102,10 @@ output "PUBLIC_IP" {
   value       = var.is_create_fip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
 }
 
-/*
 variable "TF_VERSION" {
-  default     = "0.15"
+  default     = "0.13"
   description = "Terraform engine version to be used in schematics"
 }
-*/
 
 variable "image_url" {
   default     = "cos://us-east/rackware-rmm-bucket/RackWareRMMv7.4.0.561.qcow2"
