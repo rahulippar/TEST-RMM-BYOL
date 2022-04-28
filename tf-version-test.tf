@@ -18,7 +18,7 @@ data "ibm_is_vpc" "vpc" {
 }
 
 data "ibm_resource_group" "rg" {
-  id = var.resource_group
+  name = var.resource_group
 }
 
 data "ibm_is_subnet" "subnet" {
@@ -101,6 +101,19 @@ output "PUBLIC_IP" {
   description = "Public ip address of RMM server."
   value       = var.is_create_fip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
 }
+
+/* TEMP CODE - START */
+variable "test_resource_group_custom_type" {
+  description = "Resource group name ( Custom type drop down)."
+}
+
+output "output_test_resource_group_custom_type" {
+  description = "Testing of resource group dropdown"
+  value       = "Selected resource group is ${var.test_resource_group_custom_type}"
+}
+
+
+/* TEMP CODE - END */
 
 variable "TF_VERSION" {
   default     = "0.13"
