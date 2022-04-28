@@ -83,7 +83,7 @@ resource "ibm_is_instance" "vsi" {
   image          = ibm_is_image.custom_image.id
   profile        = var.profile
 
-  user_data = file("download_discovery.sh")
+  # user_data = file("download_discovery.sh")
   primary_network_interface {
     subnet          = data.ibm_is_subnet.subnet.id
     security_groups = [ibm_is_security_group.sg.id]
