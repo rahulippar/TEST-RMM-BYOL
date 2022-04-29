@@ -13,6 +13,23 @@ provider "ibm" {
   region           = var.ibm_region
 }
 
+/*TEMP CODE - START*/
+
+resource "random_string" "lower" {
+  length  = 8
+  upper   = false
+  lower   = true
+  number  = false
+  special = false
+}
+
+output "output_test_vpc_name_dropdown" {
+  description = "testing test_vpc_name_dropdown"
+  value = var.test_vpc_name_dropdown
+}
+
+/*TEMP CODE - END */
+
 data "ibm_is_vpc" "vpc" {
   name = var.vpc_name
 }
@@ -30,7 +47,7 @@ data "ibm_is_ssh_key" "ssh_key_id" {
 }
 
 resource "ibm_is_security_group" "sg" {
-  name           = "${var.vpc_name}-sg"
+  name           = "${var.vpc_name}-${random_string.upper.result}-sg" # REMOVE ramdom_string AFTER TESTING
   vpc            = data.ibm_is_vpc.vpc.id
   resource_group = data.ibm_resource_group.rg.id
 }
@@ -64,7 +81,7 @@ resource "ibm_is_security_group_rule" "ssh_outbound" {
 }
 
 resource "ibm_is_image" "custom_image" {
-  name             = "${var.vpc_name}-cent-os-7"
+  name             = "${var.vpc_name}-${random_string.upper.result}-cent-os-7" # REMOVE ramdom_string AFTER TESTING
   href             = var.image_url
   operating_system = "centos-7-amd64"
   resource_group   = data.ibm_resource_group.rg.id
@@ -75,7 +92,7 @@ resource "ibm_is_image" "custom_image" {
 }
 
 resource "ibm_is_instance" "vsi" {
-  name           = "${var.vpc_name}-vsi"
+  name           = "${var.vpc_name}-${random_string.upper.result}-vsi" # REMOVE ramdom_string AFTER TESTING
   vpc            = data.ibm_is_vpc.vpc.id
   zone           = var.zone
   keys           = [data.ibm_is_ssh_key.ssh_key_id.id]
@@ -155,4 +172,10 @@ variable "create_floating_ip" {
   description = "Do you want to create and associate floating IP address?"
   type        = bool
   default     = false
+}
+
+# TEMP CODE
+variable "test_vpc_name_dropdown" {
+  description = "VPC dropdown name."
+  type        = string
 }
