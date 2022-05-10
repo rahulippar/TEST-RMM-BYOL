@@ -159,6 +159,5 @@ variable "attach_floating_ip" {
 
 variable "host_name" {
   description = "Unique host name for RMM server."
-  type        = bool
-  default     = false
+  type        = string
 }
