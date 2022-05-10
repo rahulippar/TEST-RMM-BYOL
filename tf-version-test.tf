@@ -103,7 +103,7 @@ output "PUBLIC_IP" {
 }
 
 variable "TF_VERSION" {
-  default     = "0.13"
+  default     = "1.1"
   description = "Terraform engine version to be used in schematics"
 }
 
