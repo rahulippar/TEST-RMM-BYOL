@@ -99,7 +99,7 @@ resource "ibm_is_floating_ip" "fip" {
 
 output "PUBLIC_IP" {
   description = "Public ip address of RMM server."
-  value       = var.create_floating_ip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
+  value       = var.attach_floating_ip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
 }
 
 variable "TF_VERSION" {
@@ -151,8 +151,8 @@ variable "subnet_name" {
   type        = string
 }
 
-variable "create_floating_ip" {
-  description = "Do you want to create and associate floating IP address?"
+variable "attach_floating_ip" {
+  description = "Do you want to create and attach floating IP address?"
   type        = bool
   default     = false
 }
