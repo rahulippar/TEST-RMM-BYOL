@@ -91,7 +91,7 @@ resource "ibm_is_instance" "vsi" {
 }
 
 resource "ibm_is_floating_ip" "fip" {
-  count          = var.create_floating_ip ? 1 : 0
+  count          = var.attach_floating_ip ? 1 : 0
   name           = "${var.host_name}-fip"
   target         = ibm_is_instance.vsi.primary_network_interface[0].id
   resource_group = data.ibm_resource_group.rg.id
