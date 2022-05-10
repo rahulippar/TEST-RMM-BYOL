@@ -30,7 +30,7 @@ data "ibm_is_ssh_key" "ssh_key_id" {
 }
 
 resource "ibm_is_security_group" "sg" {
-  name           = "${var.vpc_name}-sg"
+  name           = "${var.host_name}-sg"
   vpc            = data.ibm_is_vpc.vpc.id
   resource_group = data.ibm_resource_group.rg.id
 }
@@ -64,7 +64,7 @@ resource "ibm_is_security_group_rule" "ssh_outbound" {
 }
 
 resource "ibm_is_image" "custom_image" {
-  name             = "${var.vpc_name}-cent-os-7"
+  name             = "${var.host_name}-cent-os-7"
   href             = var.image_url
   operating_system = "centos-7-amd64"
   resource_group   = data.ibm_resource_group.rg.id
@@ -75,7 +75,7 @@ resource "ibm_is_image" "custom_image" {
 }
 
 resource "ibm_is_instance" "vsi" {
-  name           = "${var.vpc_name}-vsi"
+  name           = "${var.host_name}"
   vpc            = data.ibm_is_vpc.vpc.id
   zone           = var.zone
   keys           = [data.ibm_is_ssh_key.ssh_key_id.id]
@@ -83,7 +83,7 @@ resource "ibm_is_instance" "vsi" {
   image          = ibm_is_image.custom_image.id
   profile        = var.profile
 
-  user_data = file("download_discovery.sh")
+  #user_data = file("download_discovery.sh")
   primary_network_interface {
     subnet          = data.ibm_is_subnet.subnet.id
     security_groups = [ibm_is_security_group.sg.id]
@@ -92,7 +92,7 @@ resource "ibm_is_instance" "vsi" {
 
 resource "ibm_is_floating_ip" "fip" {
   count          = var.create_floating_ip ? 1 : 0
-  name           = "${var.vpc_name}-fip"
+  name           = "${var.host_name}-fip"
   target         = ibm_is_instance.vsi.primary_network_interface[0].id
   resource_group = data.ibm_resource_group.rg.id
 }
@@ -153,6 +153,12 @@ variable "subnet_name" {
 
 variable "attach_floating_ip" {
   description = "Do you want to create and attach floating IP address?"
+  type        = bool
+  default     = false
+}
+
+variable "host_name" {
+  description = "Unique host name for RMM server."
   type        = bool
   default     = false
 }
