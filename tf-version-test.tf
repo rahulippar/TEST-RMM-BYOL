@@ -35,7 +35,7 @@ resource "ibm_is_security_group" "sg" {
   resource_group = data.ibm_resource_group.rg.id
 }
 
-resource "ibm_is_security_group_rule" "ssh" {
+resource "ibm_is_security_group_rule" "inbound_tcp_port_22" {
   group     = ibm_is_security_group.sg.id
   direction = "inbound"
   remote    = "0.0.0.0/0"
@@ -46,7 +46,7 @@ resource "ibm_is_security_group_rule" "ssh" {
   }
 }
 
-resource "ibm_is_security_group_rule" "ssh_443" {
+resource "ibm_is_security_group_rule" "inbound_tcp_port_443" {
   group     = ibm_is_security_group.sg.id
   direction = "inbound"
   remote    = "0.0.0.0/0"
@@ -57,7 +57,7 @@ resource "ibm_is_security_group_rule" "ssh_443" {
   }
 }
 
-resource "ibm_is_security_group_rule" "ssh_outbound" {
+resource "ibm_is_security_group_rule" "outbound_all" {
   group     = ibm_is_security_group.sg.id
   direction = "outbound"
   remote    = "0.0.0.0/0"
