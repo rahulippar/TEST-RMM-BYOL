@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    ibm = {
-      source = "IBM-Cloud/ibm"
-      version = "~> 1.38.2"
-    }
-  }
-  required_version = ">= 0.13" 
-}
-
-provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.ibm_region
-}
-
 data "ibm_is_vpc" "vpc" {
   name = var.vpc_name
 }
@@ -83,7 +68,7 @@ resource "ibm_is_instance" "vsi" {
   image          = ibm_is_image.custom_image.id
   profile        = var.profile
 
-  #user_data = file("download_discovery.sh")
+  user_data = file("download_discovery.sh")
   primary_network_interface {
     subnet          = data.ibm_is_subnet.subnet.id
     security_groups = [ibm_is_security_group.sg.id]
@@ -95,69 +80,4 @@ resource "ibm_is_floating_ip" "fip" {
   name           = "${var.host_name}-fip"
   target         = ibm_is_instance.vsi.primary_network_interface[0].id
   resource_group = data.ibm_resource_group.rg.id
-}
-
-output "PUBLIC_IP" {
-  description = "Public ip address of RMM server."
-  value       = var.attach_floating_ip ? ibm_is_floating_ip.fip[0].address : "Public IP address is not created."
-}
-
-variable "TF_VERSION" {
-  default     = "1.1"
-  description = "Terraform engine version to be used in schematics"
-}
-
-variable "image_url" {
-  default     = "cos://us-east/rackware-rmm-bucket/RackWareRMMv7.4.0.561.qcow2"
-  description = "URL for source VSI image used to spin up instance."
-}
-
-variable "ibmcloud_api_key" {
-  description = "Enter your IBM Cloud API Key, you can get your IBM Cloud API key using: https://cloud.ibm.com/iam#/apikeys"
-  type        = string
-}
-
-variable "ssh_key" {
-  description = "The IBM Cloud platform SSH keys."
-  type        = string
-}
-
-variable "ibm_region" {
-  description = "IBM Cloud region where all resources will be deployed."
-  type        = string
-}
-
-variable "zone" {
-  description = "Availability zone of region."
-  type        = string
-}
-
-variable "resource_group" {
-  description = "Resource group name."
-}
-
-variable "profile" {
-  default     = "bx2-2x8"
-  description = "Profile for compute server."
-}
-
-variable "vpc_name" {
-  description = "The name of VPC."
-  type        = string
-}
-
-variable "subnet_name" {
-  description = "The name of subnet."
-  type        = string
-}
-
-variable "attach_floating_ip" {
-  description = "Do you want to create and attach floating IP address?"
-  type        = bool
-  default     = false
-}
-
-variable "host_name" {
-  description = "Unique host name for RMM server."
-  type        = string
 }
