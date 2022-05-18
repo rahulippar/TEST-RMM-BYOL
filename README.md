@@ -1,7 +1,7 @@
 ## Product Overview
-RackWare's RMM migrations are an automated, easy, and convenient process to migrate existing workloads from your current location to IBM Cloud.
+RackWare Management Module (RMM) migrations are an automated, easy, and convenient process to migrate existing workloads from your current location to IBM Cloud.
 RMM creates an exact duplicate of a running image without the burden of rebuilding or recreating template images and applications. It decouples the application stack from the underlying platform, allowing it to be ported to the IBM Cloud infrastructure with ease.
-RMM simplifies migration of large, complex environments through a simple interface and reduces the time required from weeks to days, reducing capital and operating expenses. RackWare RMM includes discovery, analysis, and automation features, allowing all  processes to be fast, easy, and error-free.
+RMM simplifies migration of large, complex environments through a simple interface and reduces the time required from weeks to days, reducing capital and operating expenses. RMM includes discovery, analysis, and automation features, allowing all  processes to be fast, easy, and error-free.
 
 ## Supported Migration 
 For additional information on the supported migrations, see below:
@@ -17,20 +17,22 @@ For additional information on the supported migrations, see below:
 -	Highly secure and efficient data transfer
 -	Auto discovery of VMware vSphere and Hyper-V workloads 
 -	Auto provision of target Virtual Server Instance
--	Include / Exclude Lists: Capture and sync only specific files and directories rather than entire systems
+-	Include/Exclude Lists: Capture and sync only specific files and directories rather than entire systems
 -	Delta Sync: Sync only the changed parts of files during the final data sync, drastically lowering cutover times
 -	Network optimization: bandwidth usage limitations, compression and check point restart for all sync operations
 
 For more information, visit https://www.rackwareinc.com/cloud-migration
 
 ## Pre-requisites
-Review the following prerequisites for RMM software installation:
+Review the following pre-requisites for RMM software installation:
 -	Make sure that you have IBM Cloud account permissions and access.
 -	Identify the region and zone where you want to deploy the RMM server
 -	For more information about IBM Cloud VPC, see  https://cloud.ibm.com/docs/vpc?topic=vpc-getting-started
 
 ## Software installation/deployment 
-The RMM software comes preinstalled as part of the virtual server provisioning process. After the virtual server  is deployed, you can access RMM through the CLI or GUI. For GUI access, enter the public IP address of the RMM server. If you have not created public IP address then use private IP address with appropriate VPN connection. Default credential is “admin” and “rackware” is the password. Be sure to change the default password.
+The RMM software comes preinstalled as part of the virtual server provisioning process. After the virtual server  is deployed, you can access RMM through the CLI or GUI. For GUI access, enter the public/reserved IP address of the RMM server. If you have not created public IP address then use private IP address with appropriate VPN connection. Default credential is “admin” and “rackware” is the password. Be sure to change the default password.
+
+**Note:** Setup VPN to access the reserved IP address.
 
 For more information, see the user guide for the RMM server: https://www.rackwareinc.com/rackware-rmm-users-guide-for-ibm-cloud
 
@@ -64,7 +66,7 @@ To purchase a license, use the following steps. 
 2) User should receive purchase order from RackWare sales team after licenses are purchased. 
 3) Run command 'rwadm relicense' on RMM CLI to generate a preinstall file. 
 4) Send an email to licensing@rackwareinc.com with the following information: 
-   - RackWare RMM License ( Subject line ) 
+   - RMM License ( Subject line ) 
    - Company Name 
    - License Count 
    - Preinstall File (attached) 
@@ -86,4 +88,4 @@ Open any issues directly with the RackWare support team. The support team is ava
 Open a case by using the  following options:
 - Email : support@rackwareinc.com 
 - Phone : +1 (844) 797-8776
-In all cases, please add RackWare RMM - IBM Cloud in the subject line. The RackWare support is based in United States and India.
+In all cases, please add RMM - IBM Cloud in the subject line. The RackWare support is based in United States and India.
